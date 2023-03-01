@@ -1,0 +1,45 @@
+---
+- name: Install and configure Promtail
+  hosts: test_parachain
+  become: true
+  vars:
+    promtail_config_path: /etc/promtail
+    promtail_config:
+      server:
+        http_listen_port: 9080
+        grpc_listen_port: 0
+        read_buffer_size: 16384
+        targets:
+          - source_ref:
+              labels:
+                job: system
+              backend:
+                type: file
+                config:
+                  path: /var/log/*.log
+                  readall: true
+  tasks:
+    - name: Create the promtail config directory
+      file:
+        path: "{{ promtail_config_path }}"
+        state: directory
+        mode: 0755
+
+    - name: Download and install Promtail
+      apt:
+        name: promtail
+        state: present
+        update_cache: true
+        force: yes
+
+    - name: Create the promtail config file
+      template:
+        src: promtail.yml.j2
+        dest: "{{ promtail_config_path }}/promtail.yml"
+        mode: 0644
+
+    - name: Enable and start the promtail service
+      service:
+        name: promtail
+        enabled: true
+        state: started

@@ -1,0 +1,24 @@
+[test]
+45.79.21.163 ansible_connection=ssh ansible_user=root ansible_ssh_pass=Bizzy7body9
+45.79.21.197 ansible_connection=ssh ansible_user=root ansible_ssh_pass=Bizzy7body9
+
+
+
+[monitoring_logging]
+45.33.12.209 ansible_connection=ssh ansible_user=root nsible_ssh_pass=Bizzy7body9
+45.33.4.44 ansible_connection=ssh ansible_user=root nsible_ssh_pass=Bizzy7body9
+
+
+
+[test_parachain]
+45.79.21.163 ansible_connection=ssh ansible_user=root ansible_ssh_pass=Bizzy7body9
+45.79.21.197 ansible_connection=ssh ansible_user=root ansible_ssh_pass=Bizzy7body9
+45.33.4.69 ansible_connection=ssh ansible_user=root ansible_ssh_pass=Bizzy7body9
+
+
+[monitoring]
+45.33.12.209 ansible_connection=ssh ansible_user=root ansible_ssh_pass=Bizzy7body9
+
+
+[logging]
+45.33.4.44 ansible_connection=ssh ansible_user=root nsible_ssh_pass=Bizzy7body9

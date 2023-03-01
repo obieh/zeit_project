@@ -1,0 +1,27 @@
+---
+- name: Deploy Grafana Loki
+  hosts: all
+  become: true
+  tasks:
+    - name: Create config directory
+      file:
+        path: /etc/loki
+        state: directory
+    - name: Create Loki config file
+      template:
+        src: loki.yml.j2
+        dest: /etc/loki/loki.yml
+    - name: Create Promtail config file
+      template:
+        src: promtail.yml.j2
+        dest: /etc/loki/promtail.yml
+    - name: Create Grafana config file
+      template:
+        src: grafana.ini.j2
+        dest: /etc/grafana/grafana.ini
+    - name: Create compose file
+      template:
+        src: docker-compose.yml.j2
+        dest: /etc/loki/docker-compose.yml
+    - name: Start Grafana Loki
+      command: "docker-compose -f /etc/loki/docker-compose.yml up -d"

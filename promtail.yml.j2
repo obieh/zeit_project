@@ -1,0 +1,16 @@
+server:
+  http_listen_port: {{ promtail_config.server.http_listen_port }}
+  grpc_listen_port: {{ promtail_config.server.grpc_listen_port }}
+  read_buffer_size: {{ promtail_config.server.read_buffer_size }}
+
+targets:
+{% for target in promtail_config.server.targets %}
+- source_ref:
+    labels:
+      job: {{ target.source_ref.labels.job }}
+    backend:
+      type: {{ target.backend.type }}
+      config:
+        path: {{ target.backend.config.path }}
+        readall: {{ target.backend.config.readall }}
+{% endfor %}
